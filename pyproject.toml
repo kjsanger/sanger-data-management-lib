@@ -35,8 +35,8 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 # Note: we are relying on setuptools' automatic package discovery, so no further
-# configuration is required. This is possible because npg-irods-python uses a standard
-# src layout. See the following for more information:
+# configuration is required. This is possible because we use a standard src layout.
+# See the following for more information:
 #
 # https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#src-layout
 
