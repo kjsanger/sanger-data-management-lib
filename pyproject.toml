@@ -1,0 +1,57 @@
+[project]
+name = "sanger-data-management-lib"
+description = "A library for data and metadata management (Wellcome Sanger Institute)."
+license = { file = "LICENSE", content-type = "text/plain" }
+readme = { file = "README.md", content-type = "text/markdown" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Programming Language :: Python"
+]
+keywords = ["sanger"]
+requires-python = ">=3.11"
+
+dynamic = ["version"]
+
+dependencies = [
+    "structlog >=26",
+]
+
+[project.optional-dependencies]
+test = [
+    "basedpyright >=1.40,<2",
+    "black >=26,<27",
+    "pytest >=9,<10",
+    "pytest-it >=0.1.5"
+]
+
+[project.urls]
+homepage = "https://github.com/wtsi-npg/sanger-data-management-lib"
+repository = "https://github.com/wtsi-npg/sanger-data-management-lib.git"
+
+[build-system]
+requires = ["setuptools>=80", "wheel", "setuptools-git-versioning>=3,<4"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+# Note: we are relying on setuptools' automatic package discovery, so no further
+# configuration is required. This is possible because npg-irods-python uses a standard
+# src layout. See the following for more information:
+#
+# https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#src-layout
+
+[tool.setuptools-git-versioning]
+enabled = true
+
+[tool.basedpyright]
+include = ["src"]
+typeCheckingMode = "standard"
+pythonPlatform = "Linux"
+
+reportMissingImports = "error"
+reportMissingParameterType = "none"
+reportMissingTypeArgument = "warning"
+reportUnknownArgumentType = "none"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "none"
+reportUnknownVariableType = "none"
