@@ -1,0 +1,44 @@
+name: "Unit tests"
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash -l -e -o pipefail {0}
+
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: "Set up Python ${{ matrix.python-version }}"
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: "Setup Python dependencies"
+        run: |
+          pip install .
+          pip install .[test]
+
+      - name: "Check code formatting"
+        run: |
+          black --check --diff ./src ./tests
+
+      - name: "Check types"
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        run:
+          basedpyright --pythonversion "$PYTHON_VERSION"
+
+      - name: "Run tests"
+        run: |
+          pip install .
+          pytest --it
